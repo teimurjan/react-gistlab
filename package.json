@@ -1,0 +1,37 @@
+{
+  "name": "react-gistlab",
+  "version": "1.0.0",
+  "description": "React components to render GitHub gists and GitLab snippets.",
+  "main": "index.js",
+  "scripts": {
+    "build": "rm -rf ./lib && tsc",
+    "lint": "tslint -c tslint.json --project tsconfig.json",
+    "prepare": "npm run test && npm run lint && npm run build"
+  },
+  "keywords": [
+    "react",
+    "gist",
+    "snippet",
+    "github",
+    "gitlab"
+  ],
+  "author": "teimurjan <teymurgg321@gmail.com> (https://teimurjan.github.io)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/teimurjan/react-gistlab/issues"
+  },
+  "homepage": "https://github.com/teimurjan/react-gistlab#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/teimurjan/react-gistlab.git"
+  },
+  "devDependencies": {
+    "@types/react": "^16.8.10",
+    "@types/react-dom": "^16.8.3",
+    "react": "^16.8.5",
+    "react-dom": "^16.8.5",
+    "tslint": "^5.14.0",
+    "tslint-react": "^4.0.0",
+    "typescript": "^3.3.4000"
+  }
+}
