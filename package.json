@@ -1,6 +1,6 @@
 {
   "name": "react-gistlab",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "React components to render GitHub gists and GitLab snippets.",
   "main": "lib/index.js",
   "scripts": {
