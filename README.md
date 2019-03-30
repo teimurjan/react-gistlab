@@ -2,7 +2,8 @@
 
 [![GitHub license](https://img.shields.io/github/license/teimurjan/sync-query-redux.svg)](https://github.com/teimurjan/react-gistlab/blob/master/LICENSE.md)
 [![npm](https://img.shields.io/npm/v/react-gistlab.svg)](https://www.npmjs.com/package/react-gistlab)
-![npm bundle size (minified + gzip)](https://img.shields.io/bundlephobia/minzip/react-gistlab.svg)
+![npm bundle size (minified + gzip)](https://img.shields.io/bundlephobia/minzip/react-gistlab.svg)[![Build Status](https://travis-ci.org/teimurjan/react-gistlab.svg?branch=master)](https://travis-ci.org/teimurjan/react-gistlab)
+[![codecov](https://codecov.io/gh/teimurjan/react-gistlab/branch/master/graph/badge.svg)](https://codecov.io/gh/teimurjan/react-gistlab)
 
 </div>
 
@@ -72,7 +73,7 @@ const CodeSnippet = () => (
 ## Plans
 
 - [x] Add tests
-- [ ] Set up CI/CD
+- [x] Set up CI/CD
 
 ## Contributions
 
