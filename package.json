@@ -4,7 +4,7 @@
   "description": "React components to render GitHub gists and GitLab snippets.",
   "main": "lib/index.js",
   "scripts": {
-    "test": "jest",
+    "test": "jest --coverage",
     "build": "rm -rf ./lib && tsc",
     "lint": "tslint -c tslint.json --project tsconfig.json",
     "prepare": "npm run test && npm run lint && npm run build"

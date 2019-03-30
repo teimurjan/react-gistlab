@@ -100,6 +100,16 @@ test('gets filename correctly', () => {
   expect(getFileName(url)).toEqual('test.js');
 });
 
+test('gets callback name correctly', () => {
+  const filename = 'file.js';
+  const gistID = '123';
+  const username = 'test';
+
+  expect(getCallbackName({ gistID, filename, username })).toEqual(
+    `gist_callback_${gistID}__${filename.replace(/[^0-9A-z]/g, '')}`
+  );
+});
+
 test('gets info from url correctly', () => {
   const username = 'test';
   const gistID = 'gist12345';
