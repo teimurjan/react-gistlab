@@ -5,12 +5,12 @@ import {
   IGithubGistState as IState,
   IGithubGistData as IData,
   IGithubGistInfo as IInfo
-} from '../index';
+} from '../../index';
 
 const GIST_BASE_URL = 'https://gist.github.com';
 const GIST_REGEX = /^https:\/\/gist\.github\.com\/(.*)\/([0-9a-z]*)/;
 
-const getInfo = (url: string): IInfo => {
+export const getInfo = (url: string): IInfo => {
   const match = url.match(GIST_REGEX);
 
   if (!match || match.length < 3) {
@@ -24,7 +24,7 @@ const getInfo = (url: string): IInfo => {
   return { username, gistID, filename };
 };
 
-const getFileName = (url: string) => {
+export const getFileName = (url: string) => {
   const fileAnchor = url.split('#').pop();
 
   if (fileAnchor && fileAnchor.match(/file-/) !== null) {
@@ -34,7 +34,7 @@ const getFileName = (url: string) => {
   return undefined;
 };
 
-const getCallbackName = ({ gistID, filename }: IInfo) =>
+export const getCallbackName = ({ gistID, filename }: IInfo) =>
   `gist_callback_${gistID}${filename ? `__${filename}` : ''}`;
 
 class GithubGist extends React.PureComponent<IProps, IState> {

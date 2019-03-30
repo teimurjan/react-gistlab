@@ -71,7 +71,7 @@ const CodeSnippet = () => (
 
 ## Plans
 
-- [ ] Add tests
+- [x] Add tests
 - [ ] Set up CI/CD
 
 ## Contributions

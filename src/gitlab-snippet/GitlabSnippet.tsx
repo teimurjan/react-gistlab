@@ -4,14 +4,13 @@ import {
   IGitlabSnippetInfo as IInfo,
   IGitlabSnippetProps as IProps,
   IGitlabSnippetState as IState
-} from '../index';
+} from '../../index';
 
-const GITLAB_SNIPPETS_BASE_URL = 'https://gitlab.com/snippets';
 const DEFAULT_CORS_PROXY_URL = 'https://cors.io/?';
-const GITLAB_SNIPPET_URL_REGEX = /^https:\/\/gitlab\.com\/snippets\/([0-9a-z]*)/;
+const GITLAB_SNIPPET_URL_REGEX = /^https:\/\/gitlab\.com\/.*\/([0-9a-z]*)$/;
 const GITLAB_SNIPPET_REGEX = /document\.write\(\'(.*)\'\)/;
 
-const getInfo = (url: string): IInfo => {
+export const getInfo = (url: string): IInfo => {
   const match = url.match(GITLAB_SNIPPET_URL_REGEX);
 
   if (!match || match.length < 2) {
@@ -23,10 +22,10 @@ const getInfo = (url: string): IInfo => {
   return { snippetID };
 };
 
-const getSnippetHTML = (responseText: string) => {
+export const getSnippetHTML = (responseText: string) => {
   const lines = responseText.split('\n');
 
-  if (lines.length < 3) {
+  if (lines.length < 2) {
     return {
       css: '',
       html: ''
@@ -52,7 +51,7 @@ const getSnippetHTML = (responseText: string) => {
   };
 };
 
-const unescapeHTML = (html: string) =>
+export const unescapeHTML = (html: string) =>
   html
     .replace(/\\"/g, '"')
     .replace(/\\n/g, '')
@@ -92,12 +91,9 @@ class GitlabSnippet extends React.PureComponent<IProps, IState> {
   }
 
   getSnippet = () => {
-    const { info } = this.state;
-    const { corsProxyURL } = this.props;
+    const { corsProxyURL, url: snippetURL } = this.props;
 
-    const url = `${corsProxyURL}${GITLAB_SNIPPETS_BASE_URL}/${
-      info.snippetID
-    }.js`;
+    const url = `${corsProxyURL}${snippetURL}.js`;
 
     const request = new XMLHttpRequest();
     request.open('GET', url);

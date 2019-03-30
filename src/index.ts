@@ -1,4 +1,4 @@
-import GithubGist from './GithubGist';
-import GitlabSnippet from './GitlabSnippet';
+import GithubGist from './github-gist/GithubGist';
+import GitlabSnippet from './gitlab-snippet/GitlabSnippet';
 
 export { GithubGist, GitlabSnippet };

@@ -4,6 +4,7 @@
   "description": "React components to render GitHub gists and GitLab snippets.",
   "main": "index.js",
   "scripts": {
+    "test": "jest",
     "build": "rm -rf ./lib && tsc",
     "lint": "tslint -c tslint.json --project tsconfig.json",
     "prepare": "npm run test && npm run lint && npm run build"
@@ -26,12 +27,34 @@
     "url": "git+https://github.com/teimurjan/react-gistlab.git"
   },
   "devDependencies": {
+    "@types/enzyme": "^3.9.1",
+    "@types/enzyme-adapter-react-16": "^1.0.5",
+    "@types/jest": "^24.0.11",
     "@types/react": "^16.8.10",
     "@types/react-dom": "^16.8.3",
+    "enzyme": "^3.9.0",
+    "enzyme-adapter-react-16": "^1.11.2",
+    "jest": "^24.5.0",
     "react": "^16.8.5",
     "react-dom": "^16.8.5",
     "tslint": "^5.14.0",
     "tslint-react": "^4.0.0",
     "typescript": "^3.3.4000"
+  },
+  "jest": {
+    "setupFiles": [
+      "<rootDir>/test-setup.js"
+    ],
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js"
+    ],
+    "transform": {
+      "^.+\\.(ts|tsx)$": "<rootDir>/test-preprocessor.js"
+    },
+    "testMatch": [
+      "**/*.test.(ts|tsx|js)"
+    ]
   }
 }
