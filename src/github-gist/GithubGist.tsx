@@ -35,7 +35,9 @@ export const getFileName = (url: string) => {
 };
 
 export const getCallbackName = ({ gistID, filename }: IInfo) =>
-  `gist_callback_${gistID}${filename ? `__${filename}` : ''}`;
+  `gist_callback_${gistID}${
+    filename ? `__${filename.replace(/[^0-9A-z]/g, '')}` : ''
+  }`;
 
 class GithubGist extends React.PureComponent<IProps, IState> {
   constructor(props: IProps) {
