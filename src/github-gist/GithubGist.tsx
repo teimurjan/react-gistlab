@@ -6,6 +6,7 @@ import {
   IGithubGistData as IData,
   IGithubGistInfo as IInfo
 } from '../../index';
+import { isDocumentDefined, isWindowDefined, warnNoWindowOrDocument } from '../utils';
 
 const GIST_BASE_URL = 'https://gist.github.com';
 const GIST_REGEX = /^https:\/\/gist\.github\.com\/(.*)\/([0-9a-z]*)/;
@@ -57,6 +58,11 @@ class GithubGist extends React.PureComponent<IProps, IState> {
   }
 
   componentWillUnmount() {
+    if (!isDocumentDefined()) {
+      warnNoWindowOrDocument();
+      return;
+    }
+    
     const { data, info } = this.state;
 
     if (data) {
@@ -76,6 +82,11 @@ class GithubGist extends React.PureComponent<IProps, IState> {
   }
 
   initCallback = () => {
+    if (!isDocumentDefined() || !isWindowDefined()) {
+      warnNoWindowOrDocument();
+      return;
+    }
+
     const { info } = this.state;
 
     (window as any)[getCallbackName(info)] = (data: IData) => {
@@ -98,6 +109,11 @@ class GithubGist extends React.PureComponent<IProps, IState> {
   };
 
   addScriptTag = () => {
+    if (!isDocumentDefined()) {
+      warnNoWindowOrDocument();
+      return;
+    }
+
     const script = document.createElement('script');
 
     const { info } = this.state;

@@ -5,6 +5,7 @@ import {
   IGitlabSnippetProps as IProps,
   IGitlabSnippetState as IState
 } from '../../index';
+import { isDocumentDefined, warnNoWindowOrDocument } from '../utils';
 
 const DEFAULT_CORS_PROXY_URL = 'https://cors.io/?';
 const GITLAB_SNIPPET_URL_REGEX = /^https:\/\/gitlab\.com\/.*\/([0-9a-z]*)$/;
@@ -77,6 +78,11 @@ class GitlabSnippet extends React.PureComponent<IProps, IState> {
   }
 
   componentWillUnmount() {
+    if (!isDocumentDefined()) {
+      warnNoWindowOrDocument();
+      return;
+    }
+
     const { data, info } = this.state;
 
     if (data) {
@@ -108,6 +114,11 @@ class GitlabSnippet extends React.PureComponent<IProps, IState> {
   };
 
   addSnippetToDOM = (css: string, html: string) => {
+    if (!isDocumentDefined()) {
+      warnNoWindowOrDocument();
+      return;
+    }
+
     const { info } = this.state;
 
     const htmlID = `gitlab-snippet-style-${info.snippetID}`;
