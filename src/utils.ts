@@ -7,3 +7,12 @@ export const warnNoWindowOrDocument = () => {
     It may cause unexpected behavior.
     `);
 };
+
+export class Counter {
+  value = 0;
+
+  next() {
+    this.value += 1;
+    return this.value;
+  }
+}

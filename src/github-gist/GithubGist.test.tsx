@@ -4,8 +4,9 @@ import { shallow } from 'enzyme';
 import GithubGist, {
   getCallbackName,
   getFileName,
-  getInfo
+  getGistInfoFromURL
 } from './GithubGist';
+import { getScriptID, getUniqueID } from '../../lib/github-gist/GithubGist';
 
 test('creates state correctly', () => {
   const username = 'test';
@@ -24,20 +25,6 @@ test('creates state correctly', () => {
       filename: undefined
     }
   });
-});
-
-test('initializes callback', () => {
-  const username = 'test';
-  const gistID = 'gist12345';
-
-  shallow(<GithubGist url={`https://gist.github.com/${username}/${gistID}`} />);
-
-  const callback = (window as any)[
-    getCallbackName({ gistID, username, filename: undefined })
-  ];
-
-  expect(callback).toBeDefined();
-  expect(callback).toBeInstanceOf(Function);
 });
 
 test('renders null when no Loading component passed', () => {
@@ -100,13 +87,49 @@ test('gets filename correctly', () => {
   expect(getFileName(url)).toEqual('test.js');
 });
 
-test('gets callback name correctly', () => {
+test('gets unique id correctly', () => {
   const filename = 'file.js';
   const gistID = '123';
   const username = 'test';
 
-  expect(getCallbackName({ gistID, filename, username })).toEqual(
-    `gist_callback_${gistID}__${filename.replace(/[^0-9A-z]/g, '')}`
+  const uniqueID = getUniqueID({ gistID, filename, username });
+
+  expect(uniqueID.slice(1)).toEqual(
+    `_${gistID}__${filename.replace(/[^0-9A-z]/g, '')}`
+  );
+
+  expect(uniqueID.slice(0, 1).match(/^\d+$/)).not.toHaveLength(0);
+});
+
+test('gets script id name correctly', () => {
+  const filename = 'file.js';
+  const gistID = '123';
+  const username = 'test';
+
+  const scriptID = getScriptID({ gistID, filename, username });
+
+  expect(scriptID.slice(0, 12)).toEqual(`gist_script_`);
+
+  expect(scriptID.slice(12, 13).match(/^\d+$/)).not.toHaveLength(0);
+
+  expect(scriptID.slice(13)).toEqual(
+    `_${gistID}__${filename.replace(/[^0-9A-z]/g, '')}`
+  );
+});
+
+test('gets callback name correctly', () => {
+  const filename = 'file.js';
+  const gistID = '123';
+  const username = 'test';
+  
+  const callbackName = getCallbackName({ gistID, filename, username });
+
+  expect(callbackName.slice(0, 14)).toEqual(`gist_callback_`);
+
+  expect(callbackName.slice(14, 15).match(/^\d+$/)).not.toHaveLength(0);
+
+  expect(callbackName.slice(15)).toEqual(
+    `_${gistID}__${filename.replace(/[^0-9A-z]/g, '')}`
   );
 });
 
@@ -117,7 +140,7 @@ test('gets info from url correctly', () => {
 
   const url = `https://gist.github.com/${username}/${gistID}#${filename}`;
 
-  expect(getInfo(url)).toEqual({
+  expect(getGistInfoFromURL(url)).toEqual({
     username,
     gistID,
     filename: 'test.js'
@@ -127,5 +150,5 @@ test('gets info from url correctly', () => {
 test('throws an error when gets info from incorrect url', () => {
   const url = 'invalid';
 
-  expect(() => getInfo(url)).toThrow(Error);
+  expect(() => getGistInfoFromURL(url)).toThrow(Error);
 });
