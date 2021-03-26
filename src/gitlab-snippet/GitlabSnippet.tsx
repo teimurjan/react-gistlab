@@ -8,7 +8,7 @@ import {
 import { isDocumentDefined, warnNoWindowOrDocument } from '../utils';
 
 const DEFAULT_CORS_PROXY_URL = 'https://cors.io/?';
-const GITLAB_SNIPPET_URL_REGEX = /^https:\/\/gitlab\.com\/.*\/([0-9a-z]*)$/;
+const GITLAB_SNIPPET_URL_REGEX = /^https:\/\/gitlab\.com\/.*\/([0-9a-z]*)/;
 const GITLAB_SNIPPET_REGEX = /document\.write\(\'(.*)\'\)/;
 
 export const getInfo = (url: string): IInfo => {
